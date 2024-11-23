@@ -47,22 +47,10 @@ If you want to ensure reproducibility across different operating systems, use pl
     ```
 
 2. Create the environment using the lock file for your platform:
-   - **For Linux:**
+   - **For Linux Or macOS or Windows:**
 
      ```bash
-     conda-lock install --name 522_milestone_env --file conda-linux-64.lock
-     ```
-
-   - **For macOS:**
-
-     ```bash
-     conda-lock install --name 522_milestone_env --file conda-osx-64.lock
-     ```
-
-   - **For Windows:**
-
-     ```bash
-     conda-lock install --name 522_milestone_env --file conda-win-64.lock
+     conda-lock install --name 522_milestone_env --file conda-lock.yml
      ```
 
 3. Activate the environment:
