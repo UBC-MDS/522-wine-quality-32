@@ -1,7 +1,7 @@
 # Wine Quality Prediction
 
 # Summary
-This project aims to analyze patterns in wine data through exploratory data analysis (EDA) and develop predictive models to classify wines or predict their quality. The analysis includes uncovering relationships between key features and their influence on wine quality, visualizing distributions and correlations, and identifying significant predictors. Predictive models such as logistic regression and random forests are developed and optimized using cross-validation and hyperparameter tuning. The project evaluates model performance with metrics like accuracy, F1-score, or RMSE, providing actionable insights for enhancing wine quality. The results offer a data-driven approach to understanding wine characteristics and their impact on quality, benefiting decision-making in winemaking and marketing.
+This project analyzes wine data through exploratory data analysis (EDA) and predictive modeling to classify wines or predict quality. Key features influencing quality are explored through visualizations and correlations, while models like logistic regression and random forests are optimized via cross-validation. Performance is evaluated using metrics such as accuracy and F1-score, providing insights to improve winemaking and marketing strategies.
 
 # Contributors:
 Nonso  
