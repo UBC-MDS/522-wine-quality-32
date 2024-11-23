@@ -1,0 +1,18 @@
+name: 522_milestone_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11.4
+  - ipykernel
+  - numpy
+  - pandas
+  - pyjanitor
+  - ucimlrepo
+  - altair-all==5.4.1
+  - altair==5.4.1
+  - altair_tiles==0.3.0
+  - vegafusion-python-embed==1.6.9
+  - vegafusion==1.6.9
+  - conda-lock
+  - mamba
+
