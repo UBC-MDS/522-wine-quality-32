@@ -50,7 +50,7 @@ If you want to ensure reproducibility across different operating systems, use pl
    - **For Linux Or macOS or Windows:**
 
      ```bash
-     conda-lock install --name 522_milestone_env --file conda-lock.yml
+     conda-lock install --name 522_milestone_env conda-lock.yml
      ```
 
 3. Activate the environment:
