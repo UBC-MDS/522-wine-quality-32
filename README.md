@@ -4,9 +4,9 @@
 This project analyzes wine data through exploratory data analysis (EDA) and predictive modeling to classify wines or predict quality. Key features influencing quality are explored through visualizations and correlations, while models like logistic regression and random forests are optimized via cross-validation. Performance is evaluated using metrics such as accuracy and F1-score, providing insights to improve winemaking and marketing strategies.
 
 # Contributors:
-Nonso  
+Chukwunonso Ebele-Muolokwu 
 Samuel Adetsi  
-Shashank  
+Shashank Hosahalli Shivamurthy
 Ci Xu  
 
 
