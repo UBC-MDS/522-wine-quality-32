@@ -4,10 +4,10 @@
 This project explores the relationship between physicochemical properties of wines and their quality ratings, aiming to predict wine quality and identify key factors influencing it using machine learning models such as Decision Trees. Through exploratory data analysis (EDA), we examine patterns, distributions, and correlations, addressing challenges such as class imbalances in wine quality ratings. The Decision Tree model is evaluated using metrics like accuracy, precision, recall, and feature importance to uncover significant predictors, such as density, alcohol, and volatile_acidity. The primary goal is to build an interpretable machine learning pipeline that provides actionable insights for winemakers to optimize production processes and for consumers to make informed choices. Additionally, the project sets the foundation for future work, including incorporating sensory attributes, addressing dataset imbalances, and leveraging more advanced ensemble methods for better predictions.
 
 # Contributors:
-Chukwunonso Ebele-Muolokwu 
-Samuel Adetsi  
-Shashank Hosahalli Shivamurthy
-Ci Xu  
+- Chukwunonso Ebele-Muolokwu 
+- Samuel Adetsi 
+- Shashank Hosahalli Shivamurthy
+- Ci Xu  
 
 # Reproducible Computational Environment
 
