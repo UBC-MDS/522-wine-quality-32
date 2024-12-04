@@ -26,4 +26,5 @@ To contribute directly to the repository:
    git checkout -b feature/your-feature-name
 3. Make your changes
 4. Create a new pull request for your changes
-5. Let other collaborator know your PR and ask 
+5. Let other collaborator know your PR and wait for their merging
+6. Then you can work on other parts of project
