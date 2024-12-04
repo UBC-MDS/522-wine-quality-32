@@ -6,6 +6,9 @@ Thank you for your interest in contributing to the **522 Wine Quality Classifica
 
 ## How You Can Contribute
 
+### Small typo problems
+Little typo pro
+
 ### Reporting Issues
 If you encounter a bug or have a suggestion:
 1. Check the [existing issues](https://github.com/UBC-MDS/522-wine-quality-32/issues) to ensure it hasn’t been reported.
@@ -21,3 +24,6 @@ To contribute directly to the repository:
 2. Create a branch for your changes:
    ```bash
    git checkout -b feature/your-feature-name
+3. Make your changes
+4. Create a new pull request for your changes
+5. Let other collaborator know your PR and ask 
