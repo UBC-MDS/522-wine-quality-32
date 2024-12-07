@@ -160,11 +160,18 @@ def validate_data_distribution(train_df, test_df, threshold: int = 0.2):
     type=str,
     help="Processed data folder path",
 )
-def main(raw: str, processed: str):
+@click.option(
+    "--report_path",
+    type=str,
+    help="Report path for storing the validation report",
+)
+def main(raw: str, processed: str, report_path: str):
 
     print(f"This is a {raw} data path")
     raw_data_data = f"{raw}/wine_quality_combined.csv"
     create_data_folder(processed)
+    create_data_folder(report_path)
+
     wine_df = pd.read_csv(raw_data_data)
 
     clean_wine = clean_data(wine_df)
