@@ -15,4 +15,8 @@ dependencies:
   - vegafusion==1.6.9
   - conda-lock==2.5.7
   - mamba
+<<<<<<< HEAD
   - matplotlib==3.9.3
+=======
+  - pandera=0.21.0
+>>>>>>> 74afaaea9bd27bd22b47c9000ff0453e2e2f7968
