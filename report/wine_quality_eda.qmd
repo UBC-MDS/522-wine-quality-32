@@ -1,0 +1,239 @@
+---
+title: "Wine Quality Prediction"
+author:
+  - name: Chukwunonso Ebele-Muolokwu
+  - name: Ci Xu
+  - name: Samuel Adetsi
+  - name: Shashank Hosahalli Shivamurthy
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+  pdf:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    output-dir: "../"
+bibliography: ../references.bib
+crossref:
+  fig-title: Figure
+  tbl-title: Table
+execute:
+  echo: false
+  warning: false
+  message: false
+jupyter: python3
+---
+
+![Such an adorable couple](../img/wine2.jpg){#fig-wine width=100%}
+
+# Summary
+
+This project aims to analyze patterns in wine data through exploratory data analysis (EDA) and develop predictive models to classify wines or predict their quality. The analysis includes uncovering relationships between key features and their influence on wine quality, visualizing distributions and correlations, and identifying significant predictors. Predictive models such as logistic regression and random forests are developed and optimized using cross-validation and hyperparameter tuning. 
+
+By leveraging machine learning techniques, we evaluated model performance with metrics like accuracy and F1-score, providing actionable insights for enhancing wine quality. The results offer a data-driven approach to understanding wine characteristics and their impact on quality, benefiting decision-making in winemaking and marketing.
+
+# Introduction
+
+## Background Information
+
+The quality of wine plays a crucial role in the wine industry, as it directly affects consumer satisfaction, pricing, and demand. Traditionally, wine quality is determined through sensory analysis by trained experts, who evaluate factors such as taste, aroma, and texture. However, these evaluations are inherently subjective, costly, and time-consuming. 
+
+With advancements in data analysis and machine learning, it is now possible to model and predict wine quality using objective, measurable features. These features include chemical and physical attributes such as acidity, sugar levels, alcohol content, and more, which directly influence the sensory properties of wine.
+
+## Research Question
+
+The primary question we sought to answer in this project is: "Can the quality of wine be effectively predicted based on its measurable physicochemical properties? Additionally, which features are most influential in determining wine quality?"
+
+This project aimed to explore whether measurable data about wine's chemical and physical properties could provide a reliable means of assessing its quality. By identifying the most important predictors of wine quality, we can gain insights into the production processes that have the greatest impact on consumer satisfaction.
+
+## Methodology Overview
+
+We utilized the Wine Quality Dataset from the UCI Machine Learning Repository, which contains information about Portuguese "Vinho Verde" wine. [@cortez2009modeling]
+
+Our analysis involved:
+- Data cleaning and preprocessing
+- Exploratory data analysis
+- Classification modeling using Decision Tree
+- Hyperparameter tuning
+- Model evaluation and feature importance analysis
+
+# Data Preparation and Exploration
+
+```{python}
+import pandas as pd
+import numpy as np
+import altair as alt
+import janitor
+from ucimlrepo import fetch_ucirepo
+import pandera as pa
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+import os
+
+alt.data_transformers.enable("vegafusion")
+
+# Load and prepare data
+wine_df = pd.read_csv('../data/raw/wine_quality_combined.csv')
+wine_df = wine_df.clean_names().drop_duplicates()
+```
+
+## Dataset Characteristics
+
+```{python}
+total_samples = len(wine_df)
+features = wine_df.columns.drop('quality').tolist()
+unique_quality_levels = sorted(wine_df['quality'].unique())
+```
+
+Our dataset contains `{python} total_samples` wine samples where
+
+- 4,898 observations are of white wines
+- 1,599 observations are of red wines
+- `{python} len(features)` numerical input features representing physicochemical attributes
+
+![Distribution of all the features](../data/img/eda.png){#fig-distributions width=100%}
+
+```{python}
+# Visualization of feature distributions
+columns = wine_df.columns.to_list()
+
+dist_chart = alt.Chart(wine_df).mark_bar().encode(
+    x=alt.X(alt.repeat('repeat'), bin=alt.Bin(maxbins=40)),
+    y=alt.Y('count()')
+).repeat(
+    repeat=columns,
+    columns=3
+).properties(
+    title="Feature Distributions"
+)
+```
+
+@fig-distributions shows the distribution of various features in our dataset.
+
+# Model Development
+
+```{python}
+# Train-test split
+train_df, test_df = train_test_split(wine_df, test_size=0.2, random_state=123)
+X_train = train_df.drop(columns='quality')
+y_train = train_df['quality']
+X_test = test_df.drop(columns='quality')
+y_test = test_df['quality']
+
+# Hyperparameter tuning
+param_grid = {
+    'max_depth': [3, 5, 10, None],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 5],
+    'max_features': [None, 'sqrt', 'log2']
+}
+
+tree_model = DecisionTreeClassifier(random_state=16)
+from sklearn.model_selection import GridSearchCV
+
+grid_search = GridSearchCV(
+    estimator=tree_model,
+    param_grid=param_grid,
+    cv=5,
+    scoring='accuracy',
+    n_jobs=-1
+)
+
+grid_search.fit(X_train, y_train)
+best_tree_model = grid_search.best_estimator_
+
+# Predictions and evaluation
+y_test_pred = best_tree_model.predict(X_test)
+test_accuracy = accuracy_score(y_test, y_test_pred)
+```
+
+To develop the decision tree classifier, we initialized a base model using `DecisionTreeClassifier` with a fixed random seed (`random_state=16`) to ensure reproducibility. A hyperparameter tuning process was conducted using `GridSearchCV` to identify the optimal configuration. The grid search evaluated various combinations of hyperparameters, including `max_depth`, `max_features`, `min_samples_leaf`, and `min_samples_split`, over a 5-fold cross-validation.
+
+The best-performing hyperparameters identified were:  
+- `max_depth`: `{python} grid_search.best_params_['max_depth']`  
+- `max_features`: `{python} grid_search.best_params_['max_features']`  
+- `min_samples_leaf`: `{python} grid_search.best_params_['min_samples_leaf']`  
+- `min_samples_split`: `{python} grid_search.best_params_['min_samples_split']`  
+
+The model was optimized using the accuracy metric (`scoring='accuracy'`) and leveraged parallel processing for efficiency (`n_jobs=-1`).
+
+
+## Model Performance
+
+The Decision Tree model [@boulesteix2007partial] achieved a test accuracy of `{python} f"{test_accuracy:.2%}"`
+. 
+
+```{python}
+# Classification report
+report = classification_report(y_test, y_test_pred, output_dict=True)
+report_df = pd.DataFrame(report).transpose().round(2)
+```
+
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| 3     | 0.00      | 0.00   | 0.00     | 4       |
+| 4     | 0.29      | 0.24   | 0.26     | 51      |
+| 5     | 0.63      | 0.66   | 0.65     | 413     |
+| 6     | 0.66      | 0.65   | 0.65     | 567     |
+| 7     | 0.61      | 0.58   | 0.60     | 228     |
+| 8     | 0.36      | 0.43   | 0.40     | 37      |
+| 9     | 0.00      | 0.00   | 0.00     | 0       |
+| **Accuracy**      |         |          | 0.62    | 1300    |
+| **Macro Avg**     | 0.37    | 0.37     | 0.36    | 1300    |
+| **Weighted Avg**  | 0.62    | 0.62     | 0.62    | 1300    |
+
+Table: Classification report. {#tbl-classification}
+
+![Confusion Matrix](../data/img/confusion.png){#fig-classification}
+
+@fig-classification provides the confusion matrix of the model.
+
+The classification report in Table @tbl-classification provides a summary of the model's performance across different classes. Notably, the highest F1-scores are observed for classes 5 and 6, indicating the model performs well in these categories. However, performance is poor for class 3 and class 9, with precision, recall, and F1-scores all registering as zero. This suggests potential issues with class imbalance or inadequate representation in the dataset. Overall accuracy is 62%, with weighted averages for precision, recall, and F1-score also at 62%.
+
+## Feature Importance
+
+```{python}
+feature_importances = pd.DataFrame({
+    'Feature': X_train.columns,
+    'Importance': best_tree_model.feature_importances_
+}).sort_values(by='Importance', ascending=False)
+
+importance_chart = alt.Chart(feature_importances).mark_bar().encode(
+    x=alt.X('Importance:Q', title='Importance'),
+    y=alt.Y('Feature:N', sort='-x', title='Feature'),
+    tooltip=['Feature', 'Importance']
+).properties(
+    title='Feature Importance'
+)
+```
+
+![The most important features](../data/img/features.png){#fig-feature-importance}
+
+ The feature importance plot highlights the relative significance of each feature in the model. The most influential feature is `alcohol`, followed by `volatile_acidity` and `sulphates`. These features contribute significantly to the predictive performance of the model, while other features like `fixed_acidity` and `pH` have minimal impact. This information can be used to focus on the most important variables for further analysis or model refinement.
+
+
+# Discussion
+
+## Key Findings
+
+Our analysis revealed that:
+- Top predictive features include `density`, `volatile` `acidity`, and `alcohol` content as seen in @fig-feature-importance.
+- The model achieved moderate predictive performance
+- Physicochemical properties provide insights into wine quality
+
+## Limitations and Future Work
+
+Future research could explore:
+
+1. Ensemble methods for improved accuracy
+2. Incorporating sensory attributes
+3. Investigating additional domain-specific features
+
+# Conclusion
+
+This project demonstrates the potential of machine learning in understanding wine quality through objective, data-driven analysis. While our model provides valuable insights, there remains significant opportunity for refinement and deeper exploration.
+
+# References
