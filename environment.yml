@@ -17,5 +17,6 @@ dependencies:
   - mamba
   - pandera=0.21.0
   - click==8.1.7
+  - quarto==1.5.56
   - pip:
     - deepchecks==0.18.1
