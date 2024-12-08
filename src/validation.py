@@ -122,15 +122,15 @@ def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
 def split_data(data: pd.DataFrame):
     train_df, test_df = train_test_split(data, test_size=0.2, random_state=123)
 
-    train_df.to_csv(
-        os.path.join(PROCESSED_FOLDER_PATH, "cancer_train.csv"), index=False
-    )
-    test_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "cancer_test.csv"), index=False)
+    train_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "wine_train.csv"), index=False)
+    test_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "wine_test.csv"), index=False)
 
     return train_df, test_df
 
 
-def validate_data_distribution(train_df, test_df, threshold: int = 0.2):
+def validate_data_distribution(train_df, test_df, report_path, threshold: int = 0.2):
+
+    full_path = f"{report_path}/validation_report.html"
     train_ds = Dataset(train_df, label="quality", cat_features=[])
     test_ds = Dataset(test_df, label="quality", cat_features=[])
     check = FeatureDrift()
@@ -145,8 +145,9 @@ def validate_data_distribution(train_df, test_df, threshold: int = 0.2):
 
     if not bool_value:
         raise
-
-    result.save_as_html(f"reports/validation_report.html")
+    if os.path.exists(full_path):
+        os.remove(full_path)
+    result.save_as_html(full_path)
 
 
 @click.command()
@@ -181,7 +182,9 @@ def main(raw: str, processed: str, report_path: str):
     train_df, test_df = split_data(
         clean_wine,
     )
-    validate_data_distribution(train_df=train_df, test_df=test_df)
+    validate_data_distribution(
+        train_df=train_df, test_df=test_df, report_path=report_path
+    )
 
 
 if __name__ == "__main__":

@@ -13,8 +13,8 @@ from data_training import load_model
 from data_download import create_data_folder
 
 
-TEST_DATA_PATH = "data/processed/cancer_test.csv"
-TRAIN_DATA_PATH = "data/processed/cancer_train.csv"
+TEST_DATA_PATH = "data/processed/wine_test.csv"
+TRAIN_DATA_PATH = "data/processed/wine_train.csv"
 IMAGE_FOLDER = "data/img"
 MODEL_PATH = "data/model/model.pkl"
 FEATURES_PATH = "data/processed/feature_importance.csv"
@@ -105,13 +105,23 @@ def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str
     type=str,
     help="Path to store the images",
 )
-def main(img_path):
+@click.option(
+    "--train_data_path",
+    type=str,
+    help="Path to read the train data",
+)
+@click.option(
+    "--test_data_path",
+    type=str,
+    help="Path to read the test data",
+)
+def main(img_path, train_data_path, test_data_path):
 
     # Loading the files needed
     _ = create_data_folder(img_path)
     model = load_model(MODEL_PATH)
-    test_data = pd.read_csv(TEST_DATA_PATH)
-    train_data = pd.read_csv(TRAIN_DATA_PATH)
+    test_data = pd.read_csv(test_data_path)
+    train_data = pd.read_csv(train_data_path)
     features_df = pd.read_csv(FEATURES_PATH)
 
     # make test pred

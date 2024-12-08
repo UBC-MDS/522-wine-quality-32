@@ -10,8 +10,7 @@ import click
 
 from data_download import create_data_folder
 
-TRAIN_DATA_PATH = "data/processed/cancer_train.csv"
-TEST_DATA_PATH = "data/processed/cancer_test.csv"
+
 FEATS_DATA_PATH = "data/processed/feature_importance.csv"
 
 MODEL_PATH = "data/model"
@@ -96,10 +95,20 @@ def perform_test(test_df, model):
     type=str,
     help="Model folder path",
 )
-def main(model_path):
+@click.option(
+    "--train_data",
+    type=str,
+    help="training data path",
+)
+@click.option(
+    "--test_data",
+    type=str,
+    help="training data path",
+)
+def main(model_path, train_data, test_data):
     model_path = create_data_folder(model_path)
-    train_data = read_data(TRAIN_DATA_PATH)
-    test_data = read_data(TEST_DATA_PATH)
+    train_data = read_data(train_data)
+    test_data = read_data(test_data)
 
     model_path = train_model(train_data)
 
