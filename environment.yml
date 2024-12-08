@@ -16,3 +16,6 @@ dependencies:
   - conda-lock==2.5.7
   - mamba
   - pandera=0.21.0
+  - click==8.1.7
+  - pip:
+    - deepchecks==0.18.1
