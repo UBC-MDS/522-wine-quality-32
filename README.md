@@ -160,13 +160,13 @@ The final report is created using Quarto and narrates the analysis with no visib
 ## PDF Format
 
 ```bash
-quarto render report.qmd --to pdf
+quarto render report/wine_quality_eda.qmd --to pdf
 ```
 
 ## HTML Format
 
 ```bash
-quarto render report.qmd --to html
+quarto render report/wine_quality_eda.qmd --to html
 ```
 
 
