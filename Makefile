@@ -58,7 +58,7 @@ report/wine_quality_eda.html: data/img/feature_importance.png data/img/quality_d
 clean:
 	@echo "Cleaning up all generated files..."
 	rm -f data/raw/* data/processed/* data/model/* data/img/* \
-	      report/validation_report.html report/wine_quality_eda.html
+	      report/validation_report.html report/wine_quality_eda.html report/wine_quality_eda.pdf
 
 # Retrain the model and regenerate everything
 retrain: clean train plot report
