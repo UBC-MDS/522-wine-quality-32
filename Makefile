@@ -53,6 +53,7 @@ report/wine_quality_eda.html: data/img/feature_importance.png data/img/quality_d
 	@echo "Checking and generating report..."
 	[ -f report/wine_quality_eda.html ] || \
 	quarto render report/wine_quality_eda.qmd --to html
+	quarto render report/wine_quality_eda.qmd --to pdf
 
 # Clean up all generated files
 clean:
