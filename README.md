@@ -1,6 +1,6 @@
 # Wine Quality Prediction 
 
-### Project Board
+## Project Board
 
 - [Milestone 1](<https://github.com/orgs/UBC-MDS/projects/177/views/1>)
 - [Milestone 2](https://github.com/orgs/UBC-MDS/projects/183)
@@ -9,17 +9,17 @@
 # Summary
 This project explores the relationship between physicochemical properties of wines and their quality ratings, aiming to predict wine quality and identify key factors influencing it using machine learning models such as Decision Trees. Through exploratory data analysis (EDA), we examine patterns, distributions, and correlations, addressing challenges such as class imbalances in wine quality ratings. The Decision Tree model is evaluated using metrics like accuracy, precision, recall, and feature importance to uncover significant predictors, such as density, alcohol, and volatile_acidity. The primary goal is to build an interpretable machine learning pipeline that provides actionable insights for winemakers to optimize production processes and for consumers to make informed choices. Additionally, the project sets the foundation for future work, including incorporating sensory attributes, addressing dataset imbalances, and leveraging more advanced ensemble methods for better predictions.
 
-# Contributors:
+## Contributors:
 - Chukwunonso Ebele-Muolokwu 
 - Samuel Adetsi 
 - Shashank Hosahalli Shivamurthy
 - Ci Xu  
 
-# Reproducible Computational Environment
+## Reproducible Computational Environment
 
 This project ensures a reproducible computational environment using Conda. Follow the steps below to set up the environment for this project.
 
-## Prerequisites
+### Prerequisites
 
 1. Install Miniconda or Anaconda.
 2. Clone this repository:
@@ -97,80 +97,97 @@ Copy and paste that URL into your browser.
 open `analysis.ipynb` in Jupyter Lab you just launched
 and under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
-# Modular Scripts
+## Pipeline Steps
 
-The analysis is divided into modular Python scripts, each performing a specific task. These scripts must be executed sequentially to reproduce the results.
+Each pipeline step is defined in the `Makefile`. Below are the individual targets and how to use them:
 
-## Script 1: Data Download
-
-`Description`: Downloads the dataset from a specified source and saves it in the raw data folder.
-
+### 1. Download Dataset
+Download the raw wine quality dataset:
 ```bash
-python src/data_download.py --folder_path="data/raw" --data_id=186
+make data
 ```
 
-`Arguments`:
-- --folder_path: Path to save the raw data.
-- --data_id: ID of the dataset to download.
+- `Output`: data/raw/wine_data.csv
 
-## Script 2: Data Validation and Processing
 
-`Description`: Validates the raw data and processes it for analysis. Saves processed data and a validation report.
-
+### 2. Process and Validate Data
+Process the raw data and generate the processed training and testing datasets, along with a validation report:
 ```bash
-python src/validation.py --raw="data/raw" --processed="data/processed" --report_path="report"
+make process
 ```
 
-`Arguments`:
-- --raw: Path to the folder containing raw data.
-- --processed: Path to save the processed data.
-- --report_path: Path to save the validation report.
+- `Inputs`: data/raw/wine_data.csv
+- `Outputs`:
+	- data/processed/wine_train.csv
+	- data/processed/wine_test.csv
+	- report/validation_report.html
 
-## Script 3: Model Training
+### 3. Train the Model
 
-`Description`: Trains a machine learning model using the processed data and saves the model.
-
+Train a Decision Tree model on the processed data:
 ```bash
-python src/data_training.py --model_path="data/model" --train_data="data/processed/wine_train.csv" --test_data="data/processed/wine_test.csv"
+make train
 ```
 
-`Arguments`:
-- --model_path: Path to save the trained model.
-- --train_data: Path to the processed training dataset.
-- --test_data: Path to the processed testing dataset.
+  - `Inputs`:
+	  - data/processed/wine_train.csv
+	  - data/processed/wine_test.csv
+	- `Output`: data/model/wine_model.pkl
 
-## Script 4: Generate Plots
-
-`Description`: Creates visualizations based on the analysis and saves them as images.
-
-```bash
-python src/plots.py --img_path="data/img" --train_data_path="data/processed/wine_train.csv" --test_data_path="data/processed/wine_test.csv"
-```
-
-`Arguments`:
-
-- --img_path: Path to save the generated plots.
-- --train_data_path: Path to the training data file.
-- --test_data_path: Path to the testing data file.
-
-# Generating the Report
-
-The final report is created using Quarto and narrates the analysis with no visible code. To generate the report:
-
-## PDF Format
+### 4. Generate Plots
+Create visualizations for feature importance and wine quality distribution:
 
 ```bash
-quarto render report/wine_quality_eda.qmd --to pdf
+make plot
 ```
+  - `Inputs`:
+	  - data/model/wine_model.pkl
+	  - data/processed/wine_train.csv
+	  - data/processed/wine_test.csv
+	- `Outputs`:
+	  - data/img/feature_importance.png
+	  - data/img/quality_distribution.png
 
-## HTML Format
+### 5. Generate the Final Report
+
+Render the analysis report using Quarto:
 
 ```bash
-quarto render report/wine_quality_eda.qmd --to html
+make report
 ```
 
+  - `Inputs`:
+	  - data/img/feature_importance.png
+	  - data/img/quality_distribution.png
+	  - report/wine_quality_eda.qmd
+	- `Output`: report/wine_quality_eda.html
 
-# Updating the Environment
+### 6. Run the Entire Pipeline
+
+Run all steps in the pipeline:
+
+```bash
+make all
+```
+This command ensures that all intermediate files are created and up to date.
+
+### 7. Clean Up Generated Files
+
+Remove all generated files to reset the pipeline:
+
+```bash
+make clean
+```
+
+### 8. Retrain and Regenerate Everything
+
+Clean the pipeline and rerun all steps:
+
+```bash
+make retrain
+```
+
+## Updating the Environment
 
 If you add new dependencies:
 1. Update environment.yaml.
@@ -185,7 +202,7 @@ conda env update -f environment.yaml --prune
 docker compose build
 ```
 
-# Cleaning Up
+## Cleaning Up
 
 
 - Remove the Conda Environment:
