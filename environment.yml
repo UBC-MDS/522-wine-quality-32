@@ -14,9 +14,10 @@ dependencies:
   - vegafusion-python-embed==1.6.9
   - vegafusion==1.6.9
   - conda-lock==2.5.7
-  - mamba
+  - mamba==1.5.9
   - pandera=0.21.0
   - click==8.1.7
   - quarto==1.5.56
+  - pytest==8.3.4
   - pip:
     - deepchecks==0.18.1
