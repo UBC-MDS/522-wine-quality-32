@@ -25,11 +25,11 @@ data/processed/wine_train.csv data/processed/wine_test.csv: data/raw/wine_data.c
 		--report_path="report"
 
 # Train the machine learning model
-train: data/model/wine_model.pkl
+train: data/model/model.pkl data/processed/feature_importance.csv
 
-data/model/wine_model.pkl: data/processed/wine_train.csv data/processed/wine_test.csv src/data_training.py
+data/model/model.pkl data/processed/feature_importance.csv: data/processed/wine_train.csv data/processed/wine_test.csv src/data_training.py
 	@echo "Checking and training model..."
-	[ -f data/model/wine_model.pkl ] || mkdir -p data/model && \
+	[ -f data/model/model.pkl ] && [ -f data/processed/feature_importance.csv ] || mkdir -p data/model && \
 	python src/data_training.py \
 		--model_path="data/model" \
 		--train_data="data/processed/wine_train.csv" \
@@ -38,7 +38,7 @@ data/model/wine_model.pkl: data/processed/wine_train.csv data/processed/wine_tes
 # Generate plots
 plot: data/img/feature_importance.png data/img/quality_distribution.png
 
-data/img/feature_importance.png data/img/quality_distribution.png: data/model/wine_model.pkl src/plots.py
+data/img/feature_importance.png data/img/quality_distribution.png: data/processed/feature_importance.csv data/processed/wine_train.csv src/plots.py
 	@echo "Checking and generating plots..."
 	[ -f data/img/feature_importance.png ] && [ -f data/img/quality_distribution.png ] || mkdir -p data/img && \
 	python src/plots.py \
