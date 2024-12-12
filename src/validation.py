@@ -2,19 +2,15 @@ import os
 import click
 import pandas as pd
 import numpy as np
-import altair as alt
-
 import janitor
 import click
-from ucimlrepo import fetch_ucirepo
 import pandera as pa
 from pandera import Column, Check
-from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.model_selection import train_test_split
 from deepchecks.tabular import Dataset
-from deepchecks.tabular.checks import FeatureLabelCorrelation
 from deepchecks.tabular.checks import FeatureDrift
 
-from data_download import create_data_folder
+from src.data_download import create_data_folder
 
 # python src/data_download.py --folder_path="data2/raw" --data_id=186
 RAW_DATA_PATH = "data/raw/wine_quality_combined.csv"
@@ -57,6 +53,14 @@ def clean_data(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
+    """Validate the processed data using a predefined schema.
+
+    Args:
+        data (pd.DataFrame): The processed data to be validated.
+
+    Returns:
+        pd.DataFrame: The input DataFrame, if it passes validation.
+    """
 
     schema = pa.DataFrameSchema(
         {
@@ -120,6 +124,20 @@ def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def split_data(data: pd.DataFrame):
+    """Split the input DataFrame into training and testing sets.
+
+    This function performs a stratified split of the input DataFrame:
+    - 80% of the data is used for training
+    - 20% of the data is used for testing
+    - Uses a fixed random state for reproducibility
+
+    Args:
+        data (pd.DataFrame): Input DataFrame to be split.
+
+    Returns:
+        tuple: A tuple containing (train_df, test_df)
+    """
+    
     train_df, test_df = train_test_split(data, test_size=0.2, random_state=123)
 
     train_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "wine_train.csv"), index=False)
@@ -129,7 +147,16 @@ def split_data(data: pd.DataFrame):
 
 
 def validate_data_distribution(train_df, test_df, report_path, threshold: int = 0.2):
+    """
+    Validate the data distribution between the train and test sets.
 
+    Args:
+        train_df (pd.DataFrame): The training data.
+        test_df (pd.DataFrame): The testing data.
+        report_path (str): The path to save the validation report.
+        threshold (int, optional): The maximum allowed drift score. Defaults to 0.2.
+    """
+    
     full_path = f"{report_path}/validation_report.html"
     train_ds = Dataset(train_df, label="quality", cat_features=[])
     test_ds = Dataset(test_df, label="quality", cat_features=[])
