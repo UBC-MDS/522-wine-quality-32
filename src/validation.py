@@ -9,8 +9,10 @@ from pandera import Column, Check
 from sklearn.model_selection import train_test_split
 from deepchecks.tabular import Dataset
 from deepchecks.tabular.checks import FeatureDrift
+import sys
+sys.path.append("src")
 
-from src.data_download import create_data_folder
+from data_download import create_data_folder
 
 # python src/data_download.py --folder_path="data2/raw" --data_id=186
 RAW_DATA_PATH = "data/raw/wine_quality_combined.csv"
