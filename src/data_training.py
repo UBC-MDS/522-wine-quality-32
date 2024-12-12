@@ -6,12 +6,15 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import classification_report, accuracy_score
 import joblib
 import click
+import sys
+sys.path.append("src")
 
 
 from data_download import create_data_folder
 
 
 FEATS_DATA_PATH = "data/processed/feature_importance.csv"
+REPORT_DATA_PATH = "data/processed/classification_report.csv"
 
 MODEL_PATH = "data/model"
 
@@ -86,7 +89,11 @@ def perform_test(test_df, model):
 
     # Classification report
     print("Table 1: Classification report:")
-    print(classification_report(y_test, y_test_pred))
+    report_dict = classification_report(y_test, y_test_pred, output_dict=True)
+
+    report_df = pd.DataFrame(report_dict).transpose()
+    report_df.to_csv(REPORT_DATA_PATH, index=False)
+    return report_df
 
 
 @click.command()
