@@ -16,7 +16,7 @@ This file describes the improvements made to the "Wine Quality Prediction" proje
 
 2. **Reproducibility:**
    - Fixed the missing dependency issue for the `deepchecks` package by updating the `Dockerfile`, `environment.yml` and `conda-linux.lock` files.
-     - **Evidence:** [](https://github.com/UBC-MDS/522-wine-quality-32/pull/61)
+     - **Evidence:** [https://github.com/UBC-MDS/522-wine-quality-32/pull/61](https://github.com/UBC-MDS/522-wine-quality-32/pull/61)
    - Replaced manually written tables (e.g., classification report) with programmatically generated tables.
      - **Evidence:** [Commit](URL)
 
