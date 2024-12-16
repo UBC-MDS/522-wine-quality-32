@@ -59,6 +59,8 @@ def download_data(file_path: str, data_id: int = 186):
         # Save the DataFrame to a CSV file
         wine_df.to_csv(file_path, index=False)
         print(f"Dataset saved as '{file_path}'.")
+
+        return wine_df
     except Exception as e:
         print(f"Error fetching or saving the dataset: {e}")
         raise
@@ -72,6 +74,8 @@ def download_data(file_path: str, data_id: int = 186):
 )
 @click.option("--data_id", type=str, help="ID of dataset to be downloaded")
 def main(folder_path: str, data_id: int):
+
+    #create the analysis folder
     csv_path = create_data_folder(folder_path)
     print("Folder path has been created")
 
