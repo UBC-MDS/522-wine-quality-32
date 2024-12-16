@@ -7,7 +7,8 @@ from sklearn.metrics import confusion_matrix
 import pandas as pd
 import altair as alt
 import click
-
+import sys
+sys.path.append("src")
 
 from data_training import load_model
 from data_download import create_data_folder
