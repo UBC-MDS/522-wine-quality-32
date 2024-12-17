@@ -193,97 +193,90 @@ Figure&nbsp;2: Distribution of all the features
 <section id="model-performance" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="model-performance"><span class="header-section-number">4.1</span> Model Performance</h2>
 <p>The Decision Tree model <span class="citation" data-cites="boulesteix2007partial">(<a href="#ref-boulesteix2007partial" role="doc-biblioref">Boulesteix and Strimmer 2007</a>)</span> achieved a test accuracy of 52.44% .</p>
-<div id="tbl-classification" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="cell" data-execution_count="5">
+<div id="tbl-classification" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-classification-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Classification report.
+Table&nbsp;1: Classification report
 </figcaption>
 <div aria-describedby="tbl-classification-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="11">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th>Class</th>
-<th>Precision</th>
-<th>Recall</th>
-<th>F1-Score</th>
-<th>Support</th>
+<th style="text-align: right;">precision</th>
+<th style="text-align: right;">recall</th>
+<th style="text-align: right;">f1-score</th>
+<th style="text-align: right;">support</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>3</td>
-<td>0.00</td>
-<td>0.00</td>
-<td>0.00</td>
-<td>4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>0.29</td>
-<td>0.24</td>
-<td>0.26</td>
-<td>51</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">50</td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td>0.63</td>
-<td>0.66</td>
-<td>0.65</td>
-<td>413</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">347</td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td>0.66</td>
-<td>0.65</td>
-<td>0.65</td>
-<td>567</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">448</td>
 </tr>
 <tr class="odd">
-<td>7</td>
-<td>0.61</td>
-<td>0.58</td>
-<td>0.60</td>
-<td>228</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">181</td>
 </tr>
 <tr class="even">
-<td>8</td>
-<td>0.36</td>
-<td>0.43</td>
-<td>0.40</td>
-<td>37</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">35</td>
 </tr>
 <tr class="odd">
-<td>9</td>
-<td>0.00</td>
-<td>0.00</td>
-<td>0.00</td>
-<td>0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td><strong>Accuracy</strong></td>
-<td></td>
-<td></td>
-<td>0.62</td>
-<td>1300</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.52</td>
 </tr>
 <tr class="odd">
-<td><strong>Macro Avg</strong></td>
-<td>0.37</td>
-<td>0.37</td>
-<td>0.36</td>
-<td>1300</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">1064</td>
 </tr>
 <tr class="even">
-<td><strong>Weighted Avg</strong></td>
-<td>0.62</td>
-<td>0.62</td>
-<td>0.62</td>
-<td>1300</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">1064</td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
 </figure>
+</div>
 </div>
 <div id="fig-classification" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
