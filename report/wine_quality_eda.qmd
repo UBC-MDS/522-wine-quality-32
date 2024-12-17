@@ -15,7 +15,7 @@ format:
     toc-depth: 2
     number-sections: true
     output-dir: "../"
-bibliography: ../references.bib
+bibliography: references.bib
 crossref:
   fig-title: Figure
   tbl-title: Table
@@ -41,6 +41,21 @@ By leveraging machine learning techniques, we evaluated model performance with m
 The quality of wine plays a crucial role in the wine industry, as it directly affects consumer satisfaction, pricing, and demand. Traditionally, wine quality is determined through sensory analysis by trained experts, who evaluate factors such as taste, aroma, and texture. However, these evaluations are inherently subjective, costly, and time-consuming. 
 
 With advancements in data analysis and machine learning, it is now possible to model and predict wine quality using objective, measurable features. These features include chemical and physical attributes such as acidity, sugar levels, alcohol content, and more, which directly influence the sensory properties of wine.
+
+## Dataset
+
+The data was downloaded from UCI Machine Learning Repository.
+- **Quality**: This is the target variable, is a score between 0 and 10 assigned by wine tasters based on sensory evaluations with blind tastes. 0-"very bad" 10-"excellent"
+- **Fixed Acidity($g/dm^{3}$):** Measures non-volatile acids that do not evaporate. The higher the value the more the acidity of the sample.
+- **Volatile Acidity($g/dm^{3}$):** Measures volatile acids that can impact wine aroma. When present in moderation, it adds complexity, but in excess, it can produce vinegar-like or pungent odors, becoming a flaw.
+- **Citric Acid($g/dm^{3}$):** A component that can add freshness and complex flavor to wine.
+- **Residual Sugar($g/dm^{3}$):** The sugar content left after fermentation. Wine taste sweeter with higher residual sugar.
+- **Chlorides($g(sodium chloride)/dm^{3}$):** Indicates salt content. More salty with higher chlorides.
+- **Free Sulfur Dioxide and Total Sulfur Dioxide($mg/dm^{3}$):** Measures preservatives that can affect taste, stability and longevity.
+- **Density($mg/dm^{3}$):** Relates to sugar and alcohol content. The weight of wine per unit volume.
+- **pH:** Measures acidity/alkalinity. Related to the color and shelf life of wine.
+- **Sulphates:** Amount of Sulphates contained in the wine.
+- **Alcohol:** This is the amount of alcohol contained in the sample.
 
 ## Research Question
 

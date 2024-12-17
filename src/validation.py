@@ -1,19 +1,22 @@
+"""This function carries out the validation on the downloaded data to make sure it passes some initial data checks"""
+
+import sys
 import os
+
 import click
 import pandas as pd
 import numpy as np
-import janitor
 import click
 import pandera as pa
 from pandera import Column, Check
 from sklearn.model_selection import train_test_split
 from deepchecks.tabular import Dataset
 from deepchecks.tabular.checks import FeatureDrift
-import sys
-sys.path.append("src")
+
 
 from data_download import create_data_folder
 
+sys.path.append("src")
 # python src/data_download.py --folder_path="data2/raw" --data_id=186
 RAW_DATA_PATH = "data/raw/wine_quality_combined.csv"
 PROCESSED_FOLDER_PATH = "data/processed"
@@ -32,7 +35,9 @@ def check_corr_feats(df: pd.DataFrame):
     np.fill_diagonal(aa.values, True)
     return aa.all().all()
 
+
 # Uses janitor to clean column names
+
 
 def clean_data(data: pd.DataFrame) -> pd.DataFrame:
     """Cleans out the raw dataframe
@@ -50,6 +55,7 @@ def clean_data(data: pd.DataFrame) -> pd.DataFrame:
     data = data.drop_duplicates()
 
     return data
+
 
 def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
     """Validate the processed data using a predefined schema.
@@ -121,6 +127,7 @@ def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
     except Exception as e:
         print(f"Validation error: {e}")
 
+
 def split_data(data: pd.DataFrame):
     """Split the input DataFrame into training and testing sets.
 
@@ -135,13 +142,14 @@ def split_data(data: pd.DataFrame):
     Returns:
         tuple: A tuple containing (train_df, test_df)
     """
-    
+
     train_df, test_df = train_test_split(data, test_size=0.2, random_state=123)
 
     train_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "wine_train.csv"), index=False)
     test_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "wine_test.csv"), index=False)
 
     return train_df, test_df
+
 
 def validate_data_distribution(train_df, test_df, report_path, threshold: int = 0.2):
     """
@@ -153,7 +161,7 @@ def validate_data_distribution(train_df, test_df, report_path, threshold: int = 
         report_path (str): The path to save the validation report.
         threshold (int, optional): The maximum allowed drift score. Defaults to 0.2.
     """
-    
+
     full_path = f"{report_path}/validation_report.html"
     train_ds = Dataset(train_df, label="quality", cat_features=[])
     test_ds = Dataset(test_df, label="quality", cat_features=[])
@@ -172,6 +180,7 @@ def validate_data_distribution(train_df, test_df, report_path, threshold: int = 
     if os.path.exists(full_path):
         os.remove(full_path)
     result.save_as_html(full_path)
+
 
 @click.command()
 @click.option(
@@ -217,6 +226,7 @@ def main(raw: str, processed: str, report_path: str):
     validate_data_distribution(
         train_df=train_df, test_df=test_df, report_path=report_path
     )
+
 
 if __name__ == "__main__":
     main()
