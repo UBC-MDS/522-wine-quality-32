@@ -15,9 +15,27 @@ If you encounter a bug or have a suggestion:
    - Environment details (e.g., OS, Python version).
    - Suggestions for improvement (if relevant).
 
-### Submitting Pull Requests
-To contribute directly to the repository:
-1. Fork this repository and clone it to your local machine.
-2. Create a branch for your changes:
+### Making Contributions
+
+1. Fork the repository
+2. Create a branch for your changes
    ```bash
    git checkout -b feature/your-feature-name
+   ```
+3. Make your changes
+4. Write tests for new features
+5. Ensure all tests pass
+6. Create a Pull Request (PR)
+
+### Contribution Guidelines
+- Follow PEP 8 style guidelines
+- Write clear, commented code
+- Include docstrings
+- Maintain high test coverage
+
+## Questions?
+- Check documentation
+- Open an issue
+- Ask for clarification in your PR
+
+Thank you for contributing!
