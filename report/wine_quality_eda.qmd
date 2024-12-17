@@ -104,21 +104,6 @@ Our dataset contains `{python} total_samples` wine samples where
 
 ![Distribution of all the features](../data/img/eda.png){#fig-distributions width=100%}
 
-```{python}
-# Visualization of feature distributions
-columns = wine_df.columns.to_list()
-
-dist_chart = alt.Chart(wine_df).mark_bar().encode(
-    x=alt.X(alt.repeat('repeat'), bin=alt.Bin(maxbins=40)),
-    y=alt.Y('count()')
-).repeat(
-    repeat=columns,
-    columns=3
-).properties(
-    title="Feature Distributions"
-)
-```
-
 @fig-distributions shows the distribution of various features in our dataset.
 
 # Model Development
@@ -202,21 +187,6 @@ Table: Classification report. {#tbl-classification}
 The classification report in Table @tbl-classification provides a summary of the model's performance across different classes. Notably, the highest F1-scores are observed for classes 5 and 6, indicating the model performs well in these categories. However, performance is poor for class 3 and class 9, with precision, recall, and F1-scores all registering as zero. This suggests potential issues with class imbalance or inadequate representation in the dataset. Overall accuracy is 62%, with weighted averages for precision, recall, and F1-score also at 62%.
 
 ## Feature Importance
-
-```{python}
-feature_importances = pd.DataFrame({
-    'Feature': X_train.columns,
-    'Importance': best_tree_model.feature_importances_
-}).sort_values(by='Importance', ascending=False)
-
-importance_chart = alt.Chart(feature_importances).mark_bar().encode(
-    x=alt.X('Importance:Q', title='Importance'),
-    y=alt.Y('Feature:N', sort='-x', title='Feature'),
-    tooltip=['Feature', 'Importance']
-).properties(
-    title='Feature Importance'
-)
-```
 
 ![The most important features](../data/img/features.png){#fig-feature-importance}
 
