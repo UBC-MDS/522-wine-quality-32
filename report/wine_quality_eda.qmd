@@ -59,6 +59,14 @@ Our analysis involved:
 - Hyperparameter tuning
 - Model evaluation and feature importance analysis
 
+## Tools and Libraries Used
+The analysis and model building for this report were conducted using the Python programming language. Specifically, the following libraries and packages were utilized:
+
+- scikit-learn[@scikit-learn]: For implementing the decision tree classifier and conducting hyperparameter tuning with GridSearchCV.
+- NumPy[@harris2020array]: For numerical computations and handling arrays.
+- Pandas[@mckinney2011pandas]: For data manipulation and preprocessing.
+- Pandera[@niels_bantilan-proc-scipy-2020]: For validating dataframes and ensuring data quality during preprocessing.
+
 # Data Preparation and Exploration
 
 ```{python}
