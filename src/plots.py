@@ -95,7 +95,7 @@ def make_confusion_matrix(y_test_df, y_pred, img_path):
             color=alt.Color("Count:Q", scale=alt.Scale(scheme="blues"), title="Count"),
             tooltip=["index:N", "Predicted:N", "Count:Q"],
         )
-        .properties(title="Figure 1: Confusion Matrix", width=400, height=400)
+        .properties(title="Confusion Matrix", width=400, height=400)
     )
 
     text = confusion_chart.mark_text(baseline="middle", fontSize=12).encode(
@@ -122,7 +122,7 @@ def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str
             y=alt.Y("Feature:N", sort="-x", title="Feature"),
             tooltip=["Feature", "Importance"],
         )
-        .properties(title="Figure 2: Feature Importance", width=600, height=400)
+        .properties(title="Feature Importances", width=600, height=400)
     )
 
     importance_chart.save(f"{img_path}/features.png")
