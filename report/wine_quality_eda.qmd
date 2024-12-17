@@ -167,25 +167,17 @@ The Decision Tree model [@boulesteix2007partial] achieved a test accuracy of `{p
 . 
 
 ```{python}
+#| label: tbl-classification
+#| tbl-cap: "Classification report"
+
+from IPython.display import Markdown
+from tabulate import tabulate
 # Classification report
 report = classification_report(y_test, y_test_pred, output_dict=True)
 report_df = pd.DataFrame(report).transpose().round(2)
+
+Markdown(report_df.to_markdown(index=False))
 ```
-
-| Class | Precision | Recall | F1-Score | Support |
-|-------|-----------|--------|----------|---------|
-| 3     | 0.00      | 0.00   | 0.00     | 4       |
-| 4     | 0.29      | 0.24   | 0.26     | 51      |
-| 5     | 0.63      | 0.66   | 0.65     | 413     |
-| 6     | 0.66      | 0.65   | 0.65     | 567     |
-| 7     | 0.61      | 0.58   | 0.60     | 228     |
-| 8     | 0.36      | 0.43   | 0.40     | 37      |
-| 9     | 0.00      | 0.00   | 0.00     | 0       |
-| **Accuracy**      |         |          | 0.62    | 1300    |
-| **Macro Avg**     | 0.37    | 0.37     | 0.36    | 1300    |
-| **Weighted Avg**  | 0.62    | 0.62     | 0.62    | 1300    |
-
-Table: Classification report. {#tbl-classification}
 
 ![Confusion Matrix](../data/img/confusion.png){#fig-classification}
 
