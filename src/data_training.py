@@ -32,9 +32,16 @@ def read_data(data_path: str) -> pd.DataFrame:
 
     return data
 
-
 def train_model(train_df: pd.DataFrame):
+    """
+    Train a Decision Tree model using GridSearchCV for hyperparameter tuning.
 
+    Args:
+        train_df (pd.DataFrame): Training DataFrame with features and target.
+
+    Returns:
+        str: Path to the saved model file.
+    """
     X_train = train_df.drop(columns="quality")
     y_train = train_df["quality"]
     # Define the hyperparameter grid
@@ -70,14 +77,31 @@ def train_model(train_df: pd.DataFrame):
 
     return f"{MODEL_PATH}/model.pkl"
 
-
 def load_model(model_path: str):
+    """
+    Load a saved machine learning model.
+
+    Args:
+        model_path (str): Path to the saved model file.
+
+    Returns:
+        object: Loaded machine learning model.
+    """
     model = joblib.load(model_path)
 
     return model
 
-
 def perform_test(test_df, model):
+    """
+    Evaluate the model on test data and generate performance metrics.
+
+    Args:
+        test_df (pd.DataFrame): Test DataFrame with features and target.
+        model (object): Trained machine learning model.
+
+    Returns:
+        pd.DataFrame: Classification report as a DataFrame.
+    """
     X_test = test_df.drop(columns="quality")
     y_test = test_df["quality"]
     # Predictions on the test set
@@ -94,7 +118,6 @@ def perform_test(test_df, model):
     report_df = pd.DataFrame(report_dict).transpose()
     report_df.to_csv(REPORT_DATA_PATH, index=False)
     return report_df
-
 
 @click.command()
 @click.option(
@@ -113,6 +136,14 @@ def perform_test(test_df, model):
     help="training data path",
 )
 def main(model_path, train_data, test_data):
+    """
+    Main function to orchestrate model training and evaluation.
+
+    Args:
+        model_path (str): Path to save the model.
+        train_data (str): Path to training data.
+        test_data (str): Path to test data.
+    """
     model_path = create_data_folder(model_path)
     train_data = read_data(train_data)
     test_data = read_data(test_data)
@@ -122,7 +153,6 @@ def main(model_path, train_data, test_data):
     model = load_model(model_path)
 
     perform_test(test_data, model)
-
 
 if __name__ == "__main__":
     main()

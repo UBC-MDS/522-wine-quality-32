@@ -75,6 +75,7 @@ div.csl-indent {
   <li><a href="#background-information" id="toc-background-information" class="nav-link" data-scroll-target="#background-information"><span class="header-section-number">2.1</span> Background Information</a></li>
   <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question"><span class="header-section-number">2.2</span> Research Question</a></li>
   <li><a href="#methodology-overview" id="toc-methodology-overview" class="nav-link" data-scroll-target="#methodology-overview"><span class="header-section-number">2.3</span> Methodology Overview</a></li>
+  <li><a href="#tools-and-libraries-used" id="toc-tools-and-libraries-used" class="nav-link" data-scroll-target="#tools-and-libraries-used"><span class="header-section-number">2.4</span> Tools and Libraries Used</a></li>
   </ul></li>
   <li><a href="#data-preparation-and-exploration" id="toc-data-preparation-and-exploration" class="nav-link" data-scroll-target="#data-preparation-and-exploration"><span class="header-section-number">3</span> Data Preparation and Exploration</a>
   <ul class="collapse">
@@ -93,7 +94,7 @@ div.csl-indent {
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="./wine_quality_eda.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../wine_quality_eda.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -156,6 +157,16 @@ Figure&nbsp;1: Such an adorable couple
 <h2 data-number="2.3" class="anchored" data-anchor-id="methodology-overview"><span class="header-section-number">2.3</span> Methodology Overview</h2>
 <p>We utilized the Wine Quality Dataset from the UCI Machine Learning Repository, which contains information about Portuguese “Vinho Verde” wine. <span class="citation" data-cites="cortez2009modeling">(<a href="#ref-cortez2009modeling" role="doc-biblioref">Cortez et al. 2009</a>)</span></p>
 <p>Our analysis involved: - Data cleaning and preprocessing - Exploratory data analysis - Classification modeling using Decision Tree - Hyperparameter tuning - Model evaluation and feature importance analysis</p>
+</section>
+<section id="tools-and-libraries-used" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="tools-and-libraries-used"><span class="header-section-number">2.4</span> Tools and Libraries Used</h2>
+<p>The analysis and model building for this report were conducted using the Python programming language. Specifically, the following libraries and packages were utilized:</p>
+<ul>
+<li>scikit-learn<span class="citation" data-cites="scikit-learn">(<a href="#ref-scikit-learn" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>: For implementing the decision tree classifier and conducting hyperparameter tuning with GridSearchCV.</li>
+<li>NumPy<span class="citation" data-cites="harris2020array">(<a href="#ref-harris2020array" role="doc-biblioref">Harris et al. 2020</a>)</span>: For numerical computations and handling arrays.</li>
+<li>Pandas<span class="citation" data-cites="mckinney2011pandas">(<a href="#ref-mckinney2011pandas" role="doc-biblioref">McKinney et al. 2011</a>)</span>: For data manipulation and preprocessing.</li>
+<li>Pandera<span class="citation" data-cites="niels_bantilan-proc-scipy-2020">(<a href="#ref-niels_bantilan-proc-scipy-2020" role="doc-biblioref">Bantilan 2020</a>)</span>: For validating dataframes and ensuring data quality during preprocessing.</li>
+</ul>
 </section>
 </section>
 <section id="data-preparation-and-exploration" class="level1" data-number="3">
@@ -339,11 +350,23 @@ Figure&nbsp;4: The most important features
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">7 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-niels_bantilan-proc-scipy-2020" class="csl-entry" role="listitem">
+Bantilan, Niels. 2020. <span>“Pandera: <span>S</span>tatistical <span>D</span>ata <span>V</span>alidation of <span>P</span>andas <span>D</span>ataframes.”</span> In <em><span>P</span>roceedings of the 19th <span>P</span>ython in <span>S</span>cience <span>C</span>onference</em>, edited by Meghann Agarwal, Chris Calloway, Dillon Niederhut, and David Shupe, 116–24. <a href="https://doi.org/ 10.25080/Majora-342d178e-010 ">https://doi.org/ 10.25080/Majora-342d178e-010 </a>.
+</div>
 <div id="ref-boulesteix2007partial" class="csl-entry" role="listitem">
 Boulesteix, Anne-Laure, and Korbinian Strimmer. 2007. <span>“Partial Least Squares: A Versatile Tool for the Analysis of High-Dimensional Genomic Data.”</span> <em>Briefings in Bioinformatics</em> 8 (1): 32–44.
 </div>
 <div id="ref-cortez2009modeling" class="csl-entry" role="listitem">
 Cortez, Paulo, Antunes Cerdeira, Fernando Almeida, Telmo Matos, and José Reis. 2009. <span>“Modeling Wine Preferences by Data Mining from Physicochemical Properties.”</span> <em>Decision Support Systems</em> 47 (4): 547–53.
+</div>
+<div id="ref-harris2020array" class="csl-entry" role="listitem">
+Harris, Charles R, K Jarrod Millman, Stéfan J Van Der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. <span>“Array Programming with NumPy.”</span> <em>Nature</em> 585 (7825): 357–62.
+</div>
+<div id="ref-mckinney2011pandas" class="csl-entry" role="listitem">
+McKinney, Wes et al. 2011. <span>“Pandas: A Foundational Python Library for Data Analysis and Statistics.”</span> <em>Python for High Performance and Scientific Computing</em> 14 (9): 1–9.
+</div>
+<div id="ref-scikit-learn" class="csl-entry" role="listitem">
+Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, et al. 2011. <span>“Scikit-Learn: Machine Learning in <span>P</span>ython.”</span> <em>Journal of Machine Learning Research</em> 12: 2825–30.
 </div>
 </div></section></div></main>
 <!-- /main column -->

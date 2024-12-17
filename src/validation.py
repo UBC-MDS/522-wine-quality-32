@@ -32,9 +32,7 @@ def check_corr_feats(df: pd.DataFrame):
     np.fill_diagonal(aa.values, True)
     return aa.all().all()
 
-
 # Uses janitor to clean column names
-
 
 def clean_data(data: pd.DataFrame) -> pd.DataFrame:
     """Cleans out the raw dataframe
@@ -52,7 +50,6 @@ def clean_data(data: pd.DataFrame) -> pd.DataFrame:
     data = data.drop_duplicates()
 
     return data
-
 
 def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
     """Validate the processed data using a predefined schema.
@@ -124,7 +121,6 @@ def validate_processed_data(data: pd.DataFrame) -> pd.DataFrame:
     except Exception as e:
         print(f"Validation error: {e}")
 
-
 def split_data(data: pd.DataFrame):
     """Split the input DataFrame into training and testing sets.
 
@@ -146,7 +142,6 @@ def split_data(data: pd.DataFrame):
     test_df.to_csv(os.path.join(PROCESSED_FOLDER_PATH, "wine_test.csv"), index=False)
 
     return train_df, test_df
-
 
 def validate_data_distribution(train_df, test_df, report_path, threshold: int = 0.2):
     """
@@ -178,7 +173,6 @@ def validate_data_distribution(train_df, test_df, report_path, threshold: int = 
         os.remove(full_path)
     result.save_as_html(full_path)
 
-
 @click.command()
 @click.option(
     "--raw",
@@ -196,7 +190,16 @@ def validate_data_distribution(train_df, test_df, report_path, threshold: int = 
     help="Report path for storing the validation report",
 )
 def main(raw: str, processed: str, report_path: str):
+    """
+    Main data processing pipeline for wine quality dataset.
 
+    Performs data cleaning, validation, splitting, and distribution checks.
+
+    Args:
+        raw (str): Path to raw data directory
+        processed (str): Path to processed data directory
+        report_path (str): Path for storing validation reports
+    """
     print(f"This is a {raw} data path")
     raw_data_data = f"{raw}/wine_quality_combined.csv"
     create_data_folder(processed)
@@ -214,7 +217,6 @@ def main(raw: str, processed: str, report_path: str):
     validate_data_distribution(
         train_df=train_df, test_df=test_df, report_path=report_path
     )
-
 
 if __name__ == "__main__":
     main()

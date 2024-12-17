@@ -22,6 +22,16 @@ FEATURES_PATH = "data/processed/feature_importance.csv"
 
 
 def perform_test(test_df, model):
+    """
+    Generate predictions on the test set using the given model.
+
+    Args:
+        test_df (pd.DataFrame): Test dataset with features and labels.
+        model: Trained machine learning model.
+
+    Returns:
+        np.ndarray: Predicted labels for the test set.
+    """
     X_test = test_df.drop(columns="quality")
     y_test = test_df["quality"]
     # Predictions on the test set
@@ -29,8 +39,14 @@ def perform_test(test_df, model):
 
     return y_test_pred
 
-
 def save_eda_viz(train_data: pd.DataFrame, img_path):
+    """
+    Create and save an EDA visualization showing distributions of features.
+
+    Args:
+        train_data (pd.DataFrame): Training dataset.
+        img_path (str): Path to save the visualization.
+    """
     columns = train_data.columns.to_list()
 
     chart = (
@@ -43,9 +59,15 @@ def save_eda_viz(train_data: pd.DataFrame, img_path):
     )
     chart.save(f"{img_path}/eda.png")
 
-
 def make_confusion_matrix(y_test_df, y_pred, img_path):
+    """
+    Generate and save a confusion matrix visualization.
 
+    Args:
+        y_test_df (pd.DataFrame): Test dataset containing true labels.
+        y_pred (np.ndarray): Predicted labels from the model.
+        img_path (str): Path to save the confusion matrix visualization.
+    """
     y_test = y_test_df["quality"]
     # Dynamically determine class labels from both y_test and y_test_pred
     class_labels = sorted(set(y_test).union(set(y_pred)))
@@ -83,8 +105,14 @@ def make_confusion_matrix(y_test_df, y_pred, img_path):
 
     final.save(f"{img_path}/confusion.png")
 
-
 def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str):
+    """
+    Create and save a feature importance visualization.
+
+    Args:
+        feature_importances (pd.DataFrame): DataFrame containing feature names and their importance values.
+        img_path (str): Path to save the feature importance visualization.
+    """
     # Plot feature importance using Altair
     importance_chart = (
         alt.Chart(feature_importances)
@@ -98,7 +126,6 @@ def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str
     )
 
     importance_chart.save(f"{img_path}/features.png")
-
 
 @click.command()
 @click.option(
@@ -117,7 +144,14 @@ def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str
     help="Path to read the test data",
 )
 def main(img_path, train_data_path, test_data_path):
+    """
+    Main function to run the data visualization and analysis pipeline.
 
+    Args:
+        img_path (str): Path to save generated images.
+        train_data_path (str): Path to load the training data.
+        test_data_path (str): Path to load the test data.
+    """
     # Loading the files needed
     _ = create_data_folder(img_path)
     model = load_model(MODEL_PATH)
@@ -133,7 +167,6 @@ def main(img_path, train_data_path, test_data_path):
     make_confusion_matrix(test_data, test_pred, IMAGE_FOLDER)
 
     save_feature_importance_viz(features_df, IMAGE_FOLDER)
-
 
 if __name__ == "__main__":
     main()
