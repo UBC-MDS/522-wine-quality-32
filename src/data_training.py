@@ -1,17 +1,22 @@
-from sklearn.model_selection import train_test_split, cross_validate
+"""This script does the training and saving of our model as a pickle file"""
+
+import sys
+import warnings
+
 from sklearn.tree import DecisionTreeClassifier
+import sklearn
 import pandas as pd
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report
 from sklearn.metrics import classification_report, accuracy_score
 import joblib
 import click
-import sys
-sys.path.append("src")
-
 
 from data_download import create_data_folder
 
+
+warnings.filterwarnings("ignore", category=sklearn.exceptions.UndefinedMetricWarning)
+sys.path.append("src")
 
 FEATS_DATA_PATH = "data/processed/feature_importance.csv"
 REPORT_DATA_PATH = "data/processed/classification_report.csv"
@@ -31,6 +36,7 @@ def read_data(data_path: str) -> pd.DataFrame:
     data = pd.read_csv(data_path)
 
     return data
+
 
 def train_model(train_df: pd.DataFrame):
     """
@@ -77,6 +83,7 @@ def train_model(train_df: pd.DataFrame):
 
     return f"{MODEL_PATH}/model.pkl"
 
+
 def load_model(model_path: str):
     """
     Load a saved machine learning model.
@@ -90,6 +97,7 @@ def load_model(model_path: str):
     model = joblib.load(model_path)
 
     return model
+
 
 def perform_test(test_df, model):
     """
@@ -118,6 +126,7 @@ def perform_test(test_df, model):
     report_df = pd.DataFrame(report_dict).transpose()
     report_df.to_csv(REPORT_DATA_PATH, index=False)
     return report_df
+
 
 @click.command()
 @click.option(
@@ -153,6 +162,7 @@ def main(model_path, train_data, test_data):
     model = load_model(model_path)
 
     perform_test(test_data, model)
+
 
 if __name__ == "__main__":
     main()

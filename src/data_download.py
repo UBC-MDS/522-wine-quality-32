@@ -1,3 +1,6 @@
+"""This module contains the neccesary function for downloading the raw data from UCI repo and 
+stores it on a raw folder"""
+
 import os
 
 import click
@@ -33,6 +36,7 @@ def create_data_folder(data_dir: str) -> str:
 
     return csv_file_path
 
+
 def download_data(file_path: str, data_id: int = 186):
     """Downloads the data from UCI and saves the csv data in the data folder
 
@@ -64,6 +68,7 @@ def download_data(file_path: str, data_id: int = 186):
         print(f"Error fetching or saving the dataset: {e}")
         raise
 
+
 @click.command()
 @click.option(
     "--folder_path",
@@ -71,7 +76,6 @@ def download_data(file_path: str, data_id: int = 186):
     help="Path to directory where raw data will be written to",
 )
 @click.option("--data_id", type=str, help="ID of dataset to be downloaded")
-
 def main(folder_path: str, data_id: int):
     """
     Main function to create a data folder and download the dataset.
@@ -80,12 +84,13 @@ def main(folder_path: str, data_id: int):
         folder_path (str): Path to the directory for saving raw data.
         data_id (int): ID of the dataset to be downloaded from UCI ML Repository.
     """
-    #create the analysis folder
+    # create the analysis folder
     csv_path = create_data_folder(folder_path)
     print("Folder path has been created")
 
-    #Download the data
+    # Download the data
     download_data(csv_path, data_id)
+
 
 if __name__ == "__main__":
     main()

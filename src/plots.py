@@ -1,18 +1,19 @@
+"""This script plots all the needed visualization being used in the final function"""
+
+import sys
+
 import altair as alt
 import pandas as pd
 import pandas as pd
-from sklearn.metrics import classification_report
-from sklearn.metrics import classification_report, accuracy_score
 from sklearn.metrics import confusion_matrix
 import pandas as pd
 import altair as alt
 import click
-import sys
-sys.path.append("src")
 
 from data_training import load_model
 from data_download import create_data_folder
 
+sys.path.append("src")
 
 TEST_DATA_PATH = "data/processed/wine_test.csv"
 TRAIN_DATA_PATH = "data/processed/wine_train.csv"
@@ -39,6 +40,7 @@ def perform_test(test_df, model):
 
     return y_test_pred
 
+
 def save_eda_viz(train_data: pd.DataFrame, img_path):
     """
     Create and save an EDA visualization showing distributions of features.
@@ -58,6 +60,7 @@ def save_eda_viz(train_data: pd.DataFrame, img_path):
         .repeat(repeat=columns, columns=3)
     )
     chart.save(f"{img_path}/eda.png")
+
 
 def make_confusion_matrix(y_test_df, y_pred, img_path):
     """
@@ -105,6 +108,7 @@ def make_confusion_matrix(y_test_df, y_pred, img_path):
 
     final.save(f"{img_path}/confusion.png")
 
+
 def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str):
     """
     Create and save a feature importance visualization.
@@ -126,6 +130,7 @@ def save_feature_importance_viz(feature_importances: pd.DataFrame, img_path: str
     )
 
     importance_chart.save(f"{img_path}/features.png")
+
 
 @click.command()
 @click.option(
@@ -167,6 +172,7 @@ def main(img_path, train_data_path, test_data_path):
     make_confusion_matrix(test_data, test_pred, IMAGE_FOLDER)
 
     save_feature_importance_viz(features_df, IMAGE_FOLDER)
+
 
 if __name__ == "__main__":
     main()
